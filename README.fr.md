@@ -16,7 +16,7 @@
 
 FileIndex recherche par nom de fichier sur tous les lecteurs du PC à la fois. Les résultats changent pendant que vous tapez dans la zone de recherche, et les noms coréens se trouvent même en ne tapant que leurs consonnes initiales (`ㅅㅈ` → 설정).
 
-Au premier lancement, il dresse la liste des fichiers de chaque lecteur ; ensuite, il suit en temps réel les fichiers créés, supprimés et renommés, de sorte que les résultats sont toujours à jour. Vous pouvez combiner des conditions d'extension, de taille, de caractères génériques et d'expressions régulières, et il trouve aussi les fichiers en double de même nom, de même taille ou de même contenu.
+Au premier lancement, il dresse la liste des fichiers de chaque lecteur, puis suit en temps réel les fichiers créés, supprimés ou renommés : les résultats sont toujours à jour. Vous pouvez combiner des conditions d'extension, de taille, de caractères génériques et d'expressions régulières, chercher le texte à l'intérieur des fichiers trouvés par leur nom, et trouver les doublons de même nom, de même taille ou de même contenu.
 
 Les fichiers trouvés s'ouvrent, se copient, se glissent-déposent et s'utilisent avec le menu contextuel comme dans l'Explorateur de fichiers. Fermer la fenêtre laisse FileIndex dans la zone de notification, prêt à revenir aussitôt, et pendant qu'il est masqué il n'utilise presque pas de mémoire.
 
@@ -25,13 +25,16 @@ Les fichiers trouvés s'ouvrent, se copient, se glissent-déposent et s'utilisen
 - **Recherche au fil de la frappe** — trouve les noms contenant tous les mots séparés par des espaces. Sans distinction de casse.
 - **Recherche par consonnes initiales coréennes** — taper simplement `ㅅㅈ` trouve des noms comme « 설정 » et « 사진 ».
 - **Conditions de recherche** — extension (`ext:`), taille (`size:`), caractères génériques (`*` `?`), expressions régulières (`regex:`).
+- **Recherche dans les fichiers** — ajoutez `:mot` à la fin de la recherche pour ne garder que les résultats dont le texte ou le document Hangul, Word, Excel ou PowerPoint contient ce texte.
 - **Recherche de doublons** — même nom (`dupe:name`), même taille (`dupe:size`), contenu identique (`dupe:content`).
 - **Mise à jour en temps réel** — les changements de fichiers apparaissent aussitôt dans les résultats. Ce qui a changé pendant que FileIndex était fermé est rattrapé au démarrage.
 - **Indexation automatique des lecteurs USB** — les lecteurs nouvellement branchés sont indexés d'eux-mêmes et retirés des résultats quand on les débranche.
-- **Comme dans l'Explorateur** — double-clic pour ouvrir, ouvrir l'emplacement, sélection multiple et copie, glisser vers l'Explorateur, menu contextuel de l'Explorateur.
-- **Aperçu** — affiche à côté de la liste la miniature du fichier sélectionné (photos, vidéos, PDF, documents Office, etc.).
+- **Comme dans l'Explorateur** — double-clic pour ouvrir, ouvrir l'emplacement, sélection de plusieurs fichiers en faisant glisser, copier et couper, glisser vers l'Explorateur, renommer directement dans la liste avec **F2**, et un menu contextuel (Ouvrir · Ouvrir le dossier · Couper · Copier · Supprimer · Renommer · Propriétés — ou passer au menu de l'Explorateur).
+- **Aperçu** — affichez le fichier sélectionné à droite de la liste. Les documents Hangul (hwp·hwpx), Word, Excel et PowerPoint sont lus par le programme lui-même et affichés avec texte, tableaux et images ; les PDF montrent toutes leurs pages et les fichiers texte, leur contenu.
+- **Liste des lecteurs** — affiche sous les résultats la taille et l'espace libre de chaque lecteur ; décochez un lecteur pour l'exclure des recherches.
+- **Corbeille exclue** — les fichiers de la Corbeille n'apparaissent pas dans les résultats.
 - **Tri et surlignage** — tri par nom, chemin, taille ou date de modification ; la partie du nom qui correspond est surlignée.
-- **Dans la zone de notification** — fermer la fenêtre la masque dans la zone de notification, où il n'utilise presque pas de mémoire.
+- **Dans la zone de notification, avec un raccourci** — fermer la fenêtre la cache dans la zone de notification, où elle n'utilise presque pas de mémoire. Un raccourci clavier de votre choix fait apparaître la fenêtre de n'importe où.
 - **Reste sur votre PC** — la liste des fichiers est enregistrée uniquement sur votre propre PC.
 - **22 langues, thèmes clair et sombre** — suit les réglages de Windows par défaut, ou choisissez vous-même.
 
@@ -63,7 +66,8 @@ Lire rapidement des lecteurs entiers nécessite les droits d'administrateur ; Wi
 |---|---|
 | Zone de recherche | Saisissez un nom de fichier, des consonnes initiales ou des conditions de recherche. Le bouton flèche à droite relance la recherche avec le texte actuel |
 | Liste des résultats | **Nom** · **Chemin** · **Taille** · **Modifié le**. Cliquez sur un en-tête de colonne pour trier ; faites glisser une bordure pour redimensionner une colonne |
-| Aperçu | En bas à droite de la liste. Miniature du fichier sélectionné (masqué pour les fichiers sans miniature) |
+| Aperçu | À droite de la liste. Contenu du fichier sélectionné — faites glisser la bordure pour changer la largeur ; activez-le ou désactivez-le avec le bouton tout à droite de la barre d'état |
+| Liste des lecteurs | Sous les résultats. Taille et espace libre de chaque lecteur ; décochez-en un pour l'exclure des recherches. Activez-la ou désactivez-la avec le bouton des lecteurs de la barre d'état |
 | Barre d'état | Nombre de résultats. S'il y en a plus que le maximum, elle affiche affichés / total, par ex. `200 / 14,092 éléments` |
 | Bouton des paramètres | Dans la barre de titre, à gauche du bouton de réduction. Ouvre la fenêtre **Paramètres** |
 | Icône de notification | Clic gauche pour ouvrir la fenêtre. Le menu du clic droit propose **FileIndex** · **Auteur** · **Quitter** |
@@ -110,6 +114,13 @@ Si une condition est mal écrite, la barre d'état affiche un exemple de la form
 
 `dupe:content` lit réellement les fichiers pour les comparer ; la barre d'état affiche donc la progression sous la forme **Comparaison du contenu — fichiers n/N, x/y MB**. Modifier le texte de recherche arrête la comparaison. Dans chaque groupe, sélectionnez tout sauf l'exemplaire à garder, puis clic droit → Supprimer.
 
+**Chercher le texte à l'intérieur des fichiers**
+Ajoutez `:` et le texte à trouver à la fin de la recherche. Ce qui précède `:` est la recherche par nom habituelle ; le programme ouvre ensuite ces fichiers et ne garde que ceux qui contiennent le texte. Ce qui suit `:` est cherché comme une seule expression, même avec des espaces, sans tenir compte de la casse.
+- `rapport :budget` — fichiers dont le nom contient « rapport » et le contenu « budget »
+- `ext:txt;log :error code` — fichiers texte qui contiennent « error code »
+
+La recherche porte sur les fichiers texte (txt, log, csv, etc.) et les documents Hangul, Word, Excel et PowerPoint (pas encore les PDF). Comme les fichiers sont réellement ouverts, la barre d'état affiche la progression **Recherche dans le contenu — n/N fichiers**, et seuls les 20 000 premiers fichiers des résultats triés sont parcourus. Il faut au moins une condition de nom, et modifier le texte de recherche arrête la recherche.
+
 **Retrouver un fichier tout juste téléchargé**
 Le tri par défaut est **Modifié le**, du plus récent au plus ancien : il suffit de taper une partie du nom pour que le fichier téléchargé ou modifié le plus récemment soit en haut. Les fichiers nouvellement créés ou enregistrés apparaissent aussitôt dans les résultats.
 
@@ -118,14 +129,18 @@ Par défaut, la liste affiche jusqu'à **200** résultats. La recherche porte to
 
 **Copier ou déplacer plusieurs fichiers ailleurs**
 - Sélectionnez-en plusieurs par **Ctrl/Maj + clic** ou **Maj + flèches**, ou appuyez sur **Ctrl+A** pour sélectionner tous les résultats.
+- Appuyez et faites glisser sur les colonnes Chemin, Taille ou Date, ou dans l'espace vide sous la liste, pour sélectionner toutes les lignes touchées par le rectangle (avec Ctrl, elles s'ajoutent à la sélection). Appuyer et faire glisser sur la colonne Nom fait glisser les fichiers.
 - Appuyez sur **Ctrl+C**, puis collez dans l'Explorateur de fichiers.
 - Vous pouvez aussi **glisser les fichiers sélectionnés vers l'Explorateur ou le Bureau**. Comme dans l'Explorateur, ils sont déplacés sur le même lecteur et copiés vers un autre lecteur.
 
-**Utiliser le menu contextuel de l'Explorateur**
-Faites un clic droit sur un résultat pour obtenir le même menu que dans l'Explorateur (Ouvrir avec, Envoyer vers, compresser, Supprimer, Propriétés, etc.). Maintenez **Maj** pendant le clic droit pour afficher aussi les commandes étendues. Les programmes lancés depuis ce menu s'exécutent avec les droits d'utilisateur normaux, pas en administrateur.
+**Menu contextuel et renommer**
+Un clic droit sur un résultat affiche **Ouvrir · Ouvrir le dossier · Couper · Copier · Supprimer · Renommer · Propriétés**. **Renommer** (ou **F2**) permet de modifier le nom directement dans la liste ; **Entrée** l'applique (Échap annule). Pour retrouver le même menu que dans l'Explorateur (Ouvrir avec, Envoyer vers, compresser, etc.), activez **Paramètres → Utiliser le menu de l'Explorateur au clic droit** ; maintenez alors **Maj** pendant le clic droit pour voir aussi les commandes étendues. Les programmes lancés depuis le menu s'exécutent avec les droits d'un utilisateur normal, pas en administrateur.
 
 **Voir photos et documents sans les ouvrir**
-Avec **Aperçu** activé (par défaut), une miniature apparaît en bas à droite de la liste chaque fois que vous sélectionnez un fichier. C'est la même miniature que dans l'Explorateur : vidéos, PDF et documents Office sont prévisualisés en plus des photos. Parcourez-les avec les flèches.
+Avec l'**Aperçu** activé (par défaut), le contenu apparaît à droite de la liste chaque fois que vous sélectionnez un fichier. Les fichiers Hangul (hwp·hwpx), Word (doc·docx), Excel (xls·xlsx) et PowerPoint (ppt·pptx) sont affichés avec texte, tableaux et images sans autre programme ; les PDF se parcourent page par page, les fichiers texte montrent leur contenu et les photos et vidéos, une miniature. Parcourez-les avec les flèches.
+
+**Choisir les lecteurs où chercher**
+Appuyez sur le bouton des lecteurs à droite de la barre d'état pour afficher la liste des lecteurs sous les résultats. La taille et l'espace libre de chaque lecteur sont indiqués ; décochez la case d'un lecteur pour l'exclure des recherches.
 
 **Chercher sur des clés USB et disques externes**
 Branchez-en un : en quelques secondes il est indexé et apparaît dans les résultats. Débranché, ses résultats disparaissent ; rebranché, il est indexé à nouveau.
@@ -139,6 +154,7 @@ Le focus reste toujours dans la zone de recherche : il suffit de taper.
 | Entrée | Ouvrir dans le programme associé (le premier résultat si rien n'est sélectionné) |
 | Ctrl+Entrée | Ouvrir l'emplacement du fichier dans l'Explorateur |
 | Ctrl+A / Ctrl+C | Sélectionner tous les résultats / copier les fichiers sélectionnés |
+| F2 | Renommer le fichier sélectionné |
 | Échap | Effacer le texte de recherche ; s'il est déjà vide, masquer dans la zone de notification |
 
 **Ouvrir une recherche depuis un raccourci ou un script**
@@ -151,8 +167,8 @@ FileIndex.exe -s "*.psd"
 
 Ajoutez-le à la cible d'un raccourci sur le Bureau pour ouvrir une recherche fréquente en un clic.
 
-**Le laisser tourner et s'en servir comme d'un raccourci clavier**
-Avec **Lancer au démarrage** activé, FileIndex démarre sans fenêtre dans la zone de notification à l'ouverture de session. Cliquez sur son icône quand vous en avez besoin : il apparaît avec le curseur déjà dans la zone de recherche, il n'y a plus qu'à taper. Pour le quitter complètement, clic droit sur l'icône → **Quitter**.
+**Le garder lancé et l'appeler avec un raccourci**
+Avec **Lancer au démarrage** activé, FileIndex démarre sans fenêtre dans la zone de notification à l'ouverture de session et, quand le PC est inoccupé, met à jour la liste des fichiers en basse priorité. Définissez une touche (par exemple Ctrl+Alt+F) dans **Paramètres → Raccourci clavier** : elle le fait apparaître depuis n'importe quel programme avec le curseur déjà dans la zone de recherche, il n'y a plus qu'à taper. Un clic sur son icône fonctionne aussi. Pour le quitter complètement, clic droit sur l'icône → **Quitter**.
 
 ## Configuration
 
@@ -164,7 +180,10 @@ Ouvrez **Paramètres** avec le bouton des paramètres de la barre de titre. Les 
 | Général | Thème (Système · Clair · Sombre) | Système |
 | Général | Langue (Système + 22 langues) | Système |
 | Général | Résultats max. | 200 |
+| Général | Raccourci clavier (afficher la fenêtre) | Aucun |
+| Général | Liste des lecteurs | Désactivée |
 | Général | Aperçu | Activé |
+| Général | Utiliser le menu de l'Explorateur au clic droit | Désactivé |
 | Général | Lancer au démarrage | Activé avec le programme d'installation |
 | À propos | Version · Auteur · Site web · Licence | — |
 

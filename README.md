@@ -16,7 +16,7 @@ English · [한국어](README.ko.md) · [简体中文](README.zh-CN.md) · [日�
 
 FileIndex searches every drive on your PC by file name at once. Results update as you type, and Korean users can search with initial consonants alone (`ㅅㅈ` → 설정).
 
-On first run it builds a list of the files on each drive. From then on it follows files being created, deleted and renamed in real time, so results are always current. You can combine extension, size, wildcard and regular-expression conditions, and it also finds duplicate files with the same name, size or content.
+On first run it builds a list of the files on each drive. From then on it follows files being created, deleted and renamed in real time, so results are always current. You can combine extension, size, wildcard and regular-expression conditions, search the text inside the files you found by name, and find duplicates with the same name, size or content.
 
 Found files can be opened, copied, dragged and right-clicked just like in File Explorer. Closing the window keeps FileIndex in the tray, ready to come back instantly, and while hidden it uses almost no memory.
 
@@ -25,13 +25,16 @@ Found files can be opened, copied, dragged and right-clicked just like in File E
 - **Search as you type** — finds names containing every space-separated word. Case-insensitive.
 - **Korean initial-consonant search** — typing just `ㅅㅈ` finds names such as "설정" and "사진".
 - **Search conditions** — extension (`ext:`), size (`size:`), wildcards (`*` `?`), regular expressions (`regex:`).
+- **Search inside files** — add `:keyword` at the end of the search to keep only results whose text, Hangul, Word, Excel or PowerPoint document contains that text.
 - **Duplicate finder** — same name (`dupe:name`), same size (`dupe:size`), identical content (`dupe:content`).
 - **Real-time updates** — file changes show up in results right away. Changes made while FileIndex was off are caught up at startup.
 - **Automatic USB indexing** — newly plugged-in drives are indexed on their own and dropped from results when removed.
-- **Works like File Explorer** — double-click to open, open file location, multi-select and copy, drag into Explorer, Explorer right-click menu.
-- **Preview** — shows the thumbnail of the selected file (photos, videos, PDFs, Office documents and more) next to the list.
+- **Works like File Explorer** — double-click to open, open file location, drag to select several, copy and cut, drag into Explorer, rename right in the list with **F2**, and a right-click menu (Open · Open folder · Cut · Copy · Delete · Rename · Properties — or switch to the Explorer menu).
+- **Preview** — view the selected file right of the list. Hangul (hwp·hwpx), Word, Excel and PowerPoint documents are read by FileIndex itself and shown with text, tables and pictures; PDFs show every page, and text files show their contents.
+- **Drive list** — shows each drive's size and free space below the results; clear a drive's box to leave it out of searches.
+- **Recycle Bin excluded** — files in the Recycle Bin do not show up in results.
 - **Sorting and highlighting** — sort by name, path, size or date modified; the part of each name that matched is highlighted.
-- **Lives in the tray** — closing the window hides it to the tray, where it uses almost no memory.
+- **Lives in the tray, with a hotkey** — closing the window hides it to the tray, where it uses almost no memory. A shortcut key of your choice brings the window up from anywhere.
 - **Stays on your PC** — the file list is stored only on your own PC.
 - **22 languages, light and dark themes** — follows your Windows settings by default, or choose your own.
 
@@ -63,7 +66,8 @@ From the second run on, FileIndex picks up the list it already built and only ca
 |---|---|
 | Search box | Enter a file name, initial consonants or search conditions. The arrow button on the right searches again with the current text |
 | Result list | **Name** · **Path** · **Size** · **Date modified**. Click a column header to sort; drag a border to resize a column |
-| Preview | Bottom right of the list. Thumbnail of the selected file (hidden for files without a thumbnail) |
+| Preview | Right of the list. Contents of the selected file — drag the border to resize; turn it on or off with the button at the right end of the status bar |
+| Drive list | Below the results. Size and free space of each drive; clear a box to leave that drive out of searches. Turn it on or off with the drive button in the status bar |
 | Status bar | Number of results. If there are more than the max results, it shows shown / total, e.g. `200 / 14,092 items` |
 | Settings button | In the title bar, left of the minimize button. Opens the **Settings** window |
 | Tray icon | Left-click to open the window. The right-click menu has **FileIndex** · **Author** · **Exit** |
@@ -110,6 +114,13 @@ If a condition is written incorrectly, the status bar shows an example of the co
 
 `dupe:content` actually reads the files to compare them, so the status bar shows progress as **Comparing contents — files n/N, x/y MB**. Changing the search text stops the comparison. In each group, select everything except the copy you want to keep, then right-click → Delete.
 
+**Search the text inside files**
+Add `:` and the text to find at the end of the search. Everything before `:` is the usual name search; FileIndex then opens those files and keeps only the ones that contain the text. The text after `:` is searched as one phrase even with spaces, ignoring case.
+- `report :budget` — files with "report" in the name whose contents contain "budget"
+- `ext:txt;log :error code` — text files that contain "error code"
+
+Text files (txt, log, csv and so on) and Hangul, Word, Excel and PowerPoint documents are searched (not PDF yet). Because the files are actually opened, the status bar shows progress as **Searching contents — n/N files**, and up to the first 20,000 files of the sorted results are searched. At least one name condition is needed, and changing the search text stops the search.
+
 **Find a file you just downloaded**
 The default sort is **Date modified**, newest first, so typing just part of a name puts the most recently downloaded or edited file at the top. Newly created or saved files appear in the results right away.
 
@@ -118,14 +129,18 @@ By default the list shows up to **200** results. The search always covers everyt
 
 **Copy or move several files elsewhere**
 - Select several with **Ctrl/Shift-click** or **Shift+arrow keys**, or press **Ctrl+A** to select all results.
+- Press and drag on the Path, Size or Date column, or on the empty area below the list, to select every row the rectangle touches (hold Ctrl to add to the selection). Pressing and dragging on the Name column drags the files out instead.
 - Press **Ctrl+C**, then paste in File Explorer.
 - You can also **drag the selected files into Explorer or onto the desktop**. Just like Explorer, they are moved on the same drive and copied to a different drive.
 
-**Use the Explorer right-click menu**
-Right-click a result to get the same menu as in Explorer (Open with, Send to, compress, Delete, Properties and so on). Hold **Shift** while right-clicking to see extended commands too. Programs started from this menu run with normal user rights, not as administrator.
+**Right-click menu and renaming**
+Right-click a result for **Open · Open folder · Cut · Copy · Delete · Rename · Properties**. Choose **Rename** (or press **F2**) to edit the name right in the list, then press **Enter** to apply it (Esc cancels). To get the same menu as in Explorer (Open with, Send to, compress and so on), turn on **Settings → Use Explorer menu on right-click**; then hold **Shift** while right-clicking to see extended commands too. Programs started from the menu run with normal user rights, not as administrator.
 
 **Check photos and documents without opening them**
-With **Preview** on (the default), a thumbnail appears at the bottom right of the list each time you select a file. It is the same thumbnail Explorer shows, so videos, PDFs and Office documents are previewed as well as photos. Step through them with the arrow keys.
+With **Preview** on (the default), the contents appear right of the list each time you select a file. Hangul (hwp·hwpx), Word (doc·docx), Excel (xls·xlsx) and PowerPoint (ppt·pptx) files are shown with text, tables and pictures without any other program; PDFs can be scrolled page by page, text files show their contents, and photos and videos show a thumbnail. Step through them with the arrow keys.
+
+**Choose which drives to search**
+Press the drive button at the right of the status bar to show the drive list below the results. Each drive's size and free space are shown; clear the box in front of a drive to leave it out of searches.
 
 **Search USB sticks and external drives**
 Plug one in and within a few seconds it is indexed and included in results. When you unplug it, its results disappear; plug it back in and it is indexed afresh.
@@ -139,6 +154,7 @@ The focus always stays in the search box, so you can just type.
 | Enter | Open in the associated program (the first result if none is selected) |
 | Ctrl+Enter | Open the file location in Explorer |
 | Ctrl+A / Ctrl+C | Select all results / copy selected files |
+| F2 | Rename the selected file |
 | Esc | Clear the search text; if already empty, hide to the tray |
 
 **Open a search straight from a shortcut or script**
@@ -151,8 +167,8 @@ FileIndex.exe -s "*.psd"
 
 Add it to the target of a desktop shortcut to open a frequent search in one click.
 
-**Keep it running and use it like a hotkey**
-With **Run at startup** on, FileIndex starts in the tray without a window when you sign in. Click the tray icon whenever you need it — it appears with the cursor already in the search box, so just start typing. To quit completely, right-click the tray icon → **Exit**.
+**Keep it running and call it up with a hotkey**
+With **Run at startup** on, FileIndex starts in the tray without a window when you sign in, and catches up on the file list at low priority once the PC is idle. Set a key (for example Ctrl+Alt+F) in **Settings → Shortcut key**, and that key brings it up from any program with the cursor already in the search box, so just start typing. Clicking the tray icon works too. To quit completely, right-click the tray icon → **Exit**.
 
 ## Configuration
 
@@ -164,7 +180,10 @@ Open **Settings** with the settings button in the title bar. Changes are saved a
 | General | Theme (System · Light · Dark) | System |
 | General | Language (System + 22 languages) | System |
 | General | Max results | 200 |
+| General | Shortcut key (bring up the window) | None |
+| General | Drive list | Off |
 | General | Preview | On |
+| General | Use Explorer menu on right-click | Off |
 | General | Run at startup | On for the installer version |
 | About | Version · Author · Homepage · License | — |
 

@@ -16,7 +16,7 @@
 
 FileIndex busca por nombre de archivo en todas las unidades del PC a la vez. Los resultados cambian mientras escribe en el cuadro de búsqueda, y los nombres en coreano se pueden encontrar escribiendo solo sus consonantes iniciales (`ㅅㅈ` → 설정).
 
-La primera vez que se ejecuta crea una lista de los archivos de cada unidad; a partir de ahí sigue en tiempo real los archivos que se crean, eliminan o cambian de nombre, de modo que los resultados siempre están al día. Puede combinar condiciones de extensión, tamaño, comodines y expresiones regulares, y también encuentra archivos duplicados con el mismo nombre, tamaño o contenido.
+La primera vez que se ejecuta crea una lista de los archivos de cada unidad y, a partir de entonces, sigue en tiempo real los archivos que se crean, eliminan o cambian de nombre, de modo que los resultados siempre están al día. Puede combinar condiciones de extensión, tamaño, comodines y expresiones regulares, buscar el texto dentro de los archivos encontrados por nombre y encontrar duplicados con el mismo nombre, tamaño o contenido.
 
 Los archivos encontrados se pueden abrir, copiar, arrastrar y usar con el menú contextual igual que en el Explorador de archivos. Al cerrar la ventana, FileIndex se queda en la bandeja del sistema, listo para volver al instante, y mientras está oculto apenas usa memoria.
 
@@ -25,13 +25,16 @@ Los archivos encontrados se pueden abrir, copiar, arrastrar y usar con el menú 
 - **Búsqueda mientras escribe** — encuentra nombres que contienen todas las palabras separadas por espacios. No distingue mayúsculas de minúsculas.
 - **Búsqueda por consonantes iniciales coreanas** — con solo escribir `ㅅㅈ` encuentra nombres como "설정" o "사진".
 - **Condiciones de búsqueda** — extensión (`ext:`), tamaño (`size:`), comodines (`*` `?`), expresiones regulares (`regex:`).
+- **Buscar dentro de los archivos** — añada `:palabra` al final de la búsqueda para quedarse solo con los resultados cuyo texto o documento Hangul, Word, Excel o PowerPoint contiene ese texto.
 - **Buscador de duplicados** — mismo nombre (`dupe:name`), mismo tamaño (`dupe:size`), contenido idéntico (`dupe:content`).
 - **Actualización en tiempo real** — los cambios en los archivos aparecen enseguida en los resultados. Los cambios hechos mientras FileIndex estaba cerrado se ponen al día al iniciarlo.
 - **Indexación automática de unidades USB** — las unidades recién conectadas se indexan solas y desaparecen de los resultados al quitarlas.
-- **Funciona como el Explorador** — doble clic para abrir, abrir la ubicación, selección múltiple y copia, arrastrar al Explorador, menú contextual del Explorador.
-- **Vista previa** — muestra junto a la lista la miniatura del archivo seleccionado (fotos, vídeos, PDF, documentos de Office y más).
+- **Funciona como el Explorador** — doble clic para abrir, abrir la ubicación, arrastrar para seleccionar varios, copiar y cortar, arrastrar al Explorador, cambiar el nombre en la propia lista con **F2** y un menú contextual (Abrir · Abrir carpeta · Cortar · Copiar · Eliminar · Cambiar nombre · Propiedades — o pasar al menú del Explorador).
+- **Vista previa** — vea el archivo seleccionado a la derecha de la lista. Los documentos Hangul (hwp·hwpx), Word, Excel y PowerPoint los lee el propio programa y los muestra con texto, tablas e imágenes; los PDF muestran todas las páginas y los archivos de texto, su contenido.
+- **Lista de unidades** — muestra bajo los resultados el tamaño y el espacio libre de cada unidad; desmarque una unidad para dejarla fuera de las búsquedas.
+- **Sin la Papelera de reciclaje** — los archivos de la Papelera no aparecen en los resultados.
 - **Orden y resaltado** — ordena por nombre, ruta, tamaño o fecha de modificación; la parte del nombre que coincide se resalta.
-- **Vive en la bandeja** — al cerrar la ventana se oculta en la bandeja, donde apenas usa memoria.
+- **Vive en la bandeja, con tecla de acceso directo** — al cerrar la ventana se oculta en la bandeja, donde casi no usa memoria. Una tecla de acceso directo a su elección muestra la ventana desde cualquier sitio.
 - **Se queda en su PC** — la lista de archivos se guarda solo en su propio PC.
 - **22 idiomas, temas claro y oscuro** — sigue la configuración de Windows de forma predeterminada, o puede elegirlos usted.
 
@@ -63,7 +66,8 @@ A partir de la segunda ejecución, FileIndex reutiliza la lista ya creada y solo
 |---|---|
 | Cuadro de búsqueda | Escriba un nombre de archivo, consonantes iniciales o condiciones de búsqueda. El botón de flecha de la derecha vuelve a buscar con el texto actual |
 | Lista de resultados | **Nombre** · **Ruta** · **Tamaño** · **Fecha de modificación**. Haga clic en un encabezado para ordenar; arrastre un borde para cambiar el ancho de una columna |
-| Vista previa | Abajo a la derecha de la lista. Miniatura del archivo seleccionado (se oculta en archivos sin miniatura) |
+| Vista previa | A la derecha de la lista. Contenido del archivo seleccionado — arrastre el borde para cambiar el ancho; se activa o desactiva con el botón del extremo derecho de la barra de estado |
+| Lista de unidades | Bajo los resultados. Tamaño y espacio libre de cada unidad; desmarque una para dejarla fuera de las búsquedas. Se activa o desactiva con el botón de unidades de la barra de estado |
 | Barra de estado | Número de resultados. Si hay más que el máximo de resultados, muestra mostrados / total, p. ej. `200 / 14,092 elementos` |
 | Botón de configuración | En la barra de título, a la izquierda del botón de minimizar. Abre la ventana **Configuración** |
 | Icono de la bandeja | Clic izquierdo para abrir la ventana. El menú contextual tiene **FileIndex** · **Autor** · **Salir** |
@@ -110,6 +114,13 @@ Si una condición está mal escrita, la barra de estado muestra un ejemplo de la
 
 `dupe:content` lee de verdad los archivos para compararlos, así que la barra de estado muestra el progreso como **Comparando contenido — archivos n/N, x/y MB**. Si cambia el texto de búsqueda, la comparación se detiene. En cada grupo, seleccione todo salvo la copia que quiera conservar y luego clic derecho → Eliminar.
 
+**Buscar el texto dentro de los archivos**
+Añada `:` y el texto que busca al final de la búsqueda. Lo que va antes de `:` es la búsqueda por nombre de siempre; el programa abre esos archivos y deja solo los que contienen el texto. Lo que va después de `:` se busca como una sola frase aunque tenga espacios, sin distinguir mayúsculas y minúsculas.
+- `informe :presupuesto` — archivos con "informe" en el nombre cuyo contenido incluye "presupuesto"
+- `ext:txt;log :error code` — archivos de texto que contienen "error code"
+
+Se buscan archivos de texto (txt, log, csv, etc.) y documentos Hangul, Word, Excel y PowerPoint (PDF todavía no). Como los archivos se abren de verdad, la barra de estado muestra el avance como **Buscando en el contenido — n/N archivos**, y se buscan como máximo los primeros 20.000 archivos de los resultados ordenados. Hace falta al menos una condición de nombre, y cambiar el texto de búsqueda detiene la búsqueda.
+
 **Encontrar un archivo recién descargado**
 El orden predeterminado es **Fecha de modificación**, de más reciente a más antiguo, así que con escribir parte de un nombre el archivo descargado o editado más recientemente queda arriba. Los archivos nuevos o recién guardados aparecen enseguida en los resultados.
 
@@ -118,14 +129,18 @@ De forma predeterminada la lista muestra hasta **200** resultados. La búsqueda 
 
 **Copiar o mover varios archivos a otro sitio**
 - Seleccione varios con **Ctrl/Mayús + clic** o **Mayús + flechas**, o pulse **Ctrl+A** para seleccionar todos los resultados.
+- Pulse y arrastre sobre las columnas Ruta, Tamaño o Fecha, o sobre el espacio vacío bajo la lista, para seleccionar todas las filas que toque el rectángulo (con Ctrl se añaden a la selección). Pulsar y arrastrar sobre la columna Nombre arrastra los archivos.
 - Pulse **Ctrl+C** y pegue en el Explorador de archivos.
 - También puede **arrastrar los archivos seleccionados al Explorador o al escritorio**. Igual que en el Explorador, se mueven dentro de la misma unidad y se copian a otra unidad.
 
-**Usar el menú contextual del Explorador**
-Haga clic derecho en un resultado para obtener el mismo menú que en el Explorador (Abrir con, Enviar a, comprimir, Eliminar, Propiedades, etc.). Mantenga **Mayús** al hacer clic derecho para ver también los comandos extendidos. Los programas iniciados desde este menú se ejecutan con permisos normales de usuario, no como administrador.
+**Menú contextual y cambiar nombre**
+Haga clic derecho en un resultado para ver **Abrir · Abrir carpeta · Cortar · Copiar · Eliminar · Cambiar nombre · Propiedades**. Con **Cambiar nombre** (o **F2**) edita el nombre en la propia lista y lo aplica con **Enter** (Esc cancela). Para tener el mismo menú que en el Explorador (Abrir con, Enviar a, comprimir, etc.), active **Configuración → Usar el menú del Explorador al hacer clic derecho**; entonces, con **Mayús** pulsada al hacer clic derecho también aparecen los comandos extendidos. Los programas iniciados desde el menú se ejecutan con permisos de usuario normal, no como administrador.
 
 **Ver fotos y documentos sin abrirlos**
-Con **Vista previa** activada (opción predeterminada), cada vez que selecciona un archivo aparece una miniatura abajo a la derecha de la lista. Es la misma miniatura que muestra el Explorador, así que se previsualizan vídeos, PDF y documentos de Office además de fotos. Recórralos con las flechas.
+Con la **Vista previa** activada (opción predeterminada), cada vez que selecciona un archivo su contenido aparece a la derecha de la lista. Hangul (hwp·hwpx), Word (doc·docx), Excel (xls·xlsx) y PowerPoint (ppt·pptx) se muestran con texto, tablas e imágenes sin ningún otro programa; los PDF se pueden recorrer página a página, los archivos de texto muestran su contenido y las fotos y vídeos, una miniatura. Recórralos con las flechas.
+
+**Elegir en qué unidades buscar**
+Pulse el botón de unidades a la derecha de la barra de estado para mostrar la lista de unidades bajo los resultados. Se ve el tamaño y el espacio libre de cada unidad; desmarque la casilla de una unidad para dejarla fuera de las búsquedas.
 
 **Buscar en memorias USB y discos externos**
 Conecte uno y en pocos segundos se indexa y aparece en los resultados. Al desconectarlo, sus resultados desaparecen; al volver a conectarlo, se indexa de nuevo.
@@ -139,6 +154,7 @@ El foco siempre está en el cuadro de búsqueda, así que basta con escribir.
 | Enter | Abrir con el programa asociado (el primer resultado si no hay selección) |
 | Ctrl+Enter | Abrir la ubicación del archivo en el Explorador |
 | Ctrl+A / Ctrl+C | Seleccionar todos los resultados / copiar los archivos seleccionados |
+| F2 | Cambiar el nombre del archivo seleccionado |
 | Esc | Borrar el texto de búsqueda; si ya está vacío, ocultar en la bandeja |
 
 **Abrir una búsqueda desde un acceso directo o un script**
@@ -151,8 +167,8 @@ FileIndex.exe -s "*.psd"
 
 Añádalo al destino de un acceso directo del escritorio para abrir una búsqueda frecuente con un clic.
 
-**Dejarlo en marcha y usarlo como un atajo**
-Con **Ejecutar al inicio** activado, FileIndex se inicia en la bandeja sin ventana al iniciar sesión. Haga clic en el icono de la bandeja cuando lo necesite: aparece con el cursor ya en el cuadro de búsqueda, así que solo tiene que escribir. Para cerrarlo del todo, clic derecho en el icono de la bandeja → **Salir**.
+**Tenerlo siempre abierto y llamarlo con una tecla**
+Con **Ejecutar al inicio** activado, FileIndex se inicia en la bandeja sin ventana al iniciar sesión y, cuando el PC está desocupado, pone al día la lista de archivos con prioridad baja. Defina una tecla (por ejemplo Ctrl+Alt+F) en **Configuración → Tecla de acceso directo** y esa tecla lo mostrará desde cualquier programa con el cursor ya en el cuadro de búsqueda, así que solo tiene que escribir. También puede hacer clic en el icono de la bandeja. Para cerrarlo del todo, clic derecho en el icono de la bandeja → **Salir**.
 
 ## Configuración
 
@@ -164,7 +180,10 @@ Abra **Configuración** con el botón de configuración de la barra de título. 
 | General | Tema (Sistema · Claro · Oscuro) | Sistema |
 | General | Idioma (Sistema + 22 idiomas) | Sistema |
 | General | Resultados máx. | 200 |
+| General | Tecla de acceso directo (mostrar la ventana) | Ninguno |
+| General | Lista de unidades | Desactivada |
 | General | Vista previa | Activada |
+| General | Usar el menú del Explorador al hacer clic derecho | Desactivado |
 | General | Ejecutar al inicio | Activado en la versión con instalador |
 | Acerca de | Versión · Autor · Sitio web · Licencia | — |
 
